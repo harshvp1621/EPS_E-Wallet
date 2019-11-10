@@ -14,6 +14,10 @@ import org.json.JSONObject;
 import java.io.IOException;
 import android.os.StrictMode;
 
+import java.util.HashMap;
+import android.text.Html;
+import android.widget.TextView;
+
 import java.net.InetAddress;
 import java.net.MalformedURLException;
 
@@ -21,7 +25,9 @@ import static org.json.JSONObject.NULL;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnGetPubKey, btnScanBarcode, btnQRCode;
+    UserSessionManager session;
+
+    Button btnGetPubKey, btnScanBarcode, btnQRCode, btnLogout;
     JSONObject response = new JSONObject();
     String base64response;
 //    byte[] base64response;
@@ -30,6 +36,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        session =  new UserSessionManager(getApplicationContext());
+
+        Toast.makeText(getApplicationContext(),
+                "User Login Status: " + session.isUserLoggedIn(),
+                Toast.LENGTH_LONG).show();
+
+        if(session.checkLogin())
+            finish();
+
         initViews();
     }
 
@@ -37,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnGetPubKey = findViewById(R.id.btnGetPubKey);
         btnScanBarcode = findViewById(R.id.btnScanBarcode);
         btnQRCode = findViewById(R.id.btnGetQR);
+        btnLogout = findViewById(R.id.btnLogout);
+        btnLogout.setOnClickListener(this);
         btnQRCode.setOnClickListener(this);
         btnGetPubKey.setOnClickListener(this);
         btnScanBarcode.setOnClickListener(this);
@@ -46,6 +64,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
 
         switch (v.getId()) {
+            case R.id.btnLogout:
+                session.logoutUser();
+                break;
             case R.id.btnGetPubKey:
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);

@@ -34,4 +34,13 @@
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:text="Get QR" />
 
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnGetQR"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="Logout" />
+
 </RelativeLayout>
