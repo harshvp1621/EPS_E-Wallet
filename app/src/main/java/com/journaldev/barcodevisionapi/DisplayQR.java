@@ -39,8 +39,13 @@ public class DisplayQR extends AppCompatActivity{
             byte[] decodedString = Base64.decode(raw64,Base64.DEFAULT);
 
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
-            if(decodedByte != null)
-                qrImg.setImageBitmap(resizeBitmapImage(decodedByte, 256, 256));
+            if(decodedByte != null) {
+                Bitmap resizedQR = resizeBitmapImage(decodedByte, 256, 256);
+                String filePath = SaveLoadBitmap.saveToInternalStorage(resizedQR, getApplicationContext(), "QR1");
+//                qrImg.setImageBitmap(SaveLoadBitmap.loadSubmissionImage(1));
+//
+                qrImg.setImageBitmap(SaveLoadBitmap.loadImageFromStorage(filePath, "QR1"));
+            }
             else
 //                Toast.makeText(getApplicationContext(), "NULL Decoded", Toast.LENGTH_SHORT).show();
             Toast.makeText(getApplicationContext(), "RAW "+ raw64, Toast.LENGTH_LONG).show();

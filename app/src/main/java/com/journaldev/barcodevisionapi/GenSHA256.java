@@ -15,7 +15,7 @@ public class GenSHA256 {
         }
         return  res;
     }
-    private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
+    private static final char[] HEX_ARRAY = "0123456789abcdef".toCharArray();
 
     private static String bytesToHex(byte[] hash){
         char [] hexChars = new char[hash.length * 2];

@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     UserSessionManager session;
 
-    Button btnScanBarcode, btnPaymentsPage, btnLogout;
+    Button btnScanBarcode, btnPaymentsPage, btnLogout, btnViewQR;
     JSONObject response = new JSONObject();
     String base64response;
 //    byte[] base64response;
@@ -86,6 +86,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnPaymentsPage.setOnClickListener(this);
 //        btnGetPubKey.setOnClickListener(this);
         btnScanBarcode.setOnClickListener(this);
+
+        btnViewQR = findViewById(R.id.btnViewQR);
+        btnViewQR.setOnClickListener(this);
     }
 
     @Override
@@ -118,6 +121,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                    Toast.makeText(getApplicationContext(), "Unable to Reach Server", Toast.LENGTH_SHORT).show();
 //                }
                 startActivity(new Intent(MainActivity.this, PaymentActivity.class).putExtra("base64string", base64response));
+                break;
+            case R.id.btnViewQR:
+                startActivity(new Intent(MainActivity.this, ViewPastQRActivity.class));
                 break;
         }
 

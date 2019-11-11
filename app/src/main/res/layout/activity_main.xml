@@ -35,10 +35,19 @@
         android:text="PAY" />
 
     <Button
-        android:id="@+id/btnLogout"
+        android:id="@+id/btnViewQR"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnPaymentsPage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="ViewQR" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnViewQR"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:text="Logout" />

@@ -74,21 +74,27 @@ public class LoginActivity extends Activity {
                 // Validate if username, password is filled
                 if(username.trim().length() > 0 && password.trim().length() > 0){
 
-                    if(authToken != null && !authToken.equals("INVALIDCREDENTIALS")){
+                    if(!authToken.equals("INVALID_CREDENTIALS")){
 
                         // Creating login session
                         // Username and AuthToken
-                        session.createUserLoginSession(username, authToken);
+                        if(authToken.equals(null)){
+                            Toast.makeText(getApplicationContext(),
+                                    "NULL Token Received Try Again",
+                                    Toast.LENGTH_LONG).show();
+                        }else {
+                            session.createUserLoginSession(username, authToken);
 
-                        // Starting MainActivity
-                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            // Starting MainActivity
+                            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
-                        // Add new Flag to start new Activity
-                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(i);
+                            // Add new Flag to start new Activity
+                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(i);
 
-                        finish();
+                            finish();
+                        }
 
                     }else{
 
@@ -96,6 +102,7 @@ public class LoginActivity extends Activity {
                         Toast.makeText(getApplicationContext(),
                                 "Username/Password is incorrect",
                                 Toast.LENGTH_LONG).show();
+
 
                     }
                 }else{

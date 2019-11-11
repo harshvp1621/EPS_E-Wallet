@@ -37,7 +37,7 @@ public class GetBase64String {
 
         JSONObject jsonParam = new JSONObject();
         try{
-            jsonParam.put("recipientid",recipientID);
+            jsonParam.put("vendorid",recipientID);
             jsonParam.put("amount",amount);
             jsonParam.put("tokenid",authToken);
         }

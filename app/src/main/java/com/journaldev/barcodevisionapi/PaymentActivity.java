@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class PaymentActivity extends AppCompatActivity {
 
@@ -36,8 +37,9 @@ public class PaymentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
 
-        SharedPreferences session = getSharedPreferences("AuthTokens", Context.MODE_PRIVATE);
-        authToken = session.getString("11640420", "-1");
+        UserSessionManager session = new UserSessionManager(getApplicationContext());
+        HashMap<String, String> user = session.getUserDetails();
+        authToken = user.get("authToken");
 
         initViews();
     }
@@ -55,7 +57,7 @@ public class PaymentActivity extends AppCompatActivity {
         generateQR = findViewById(R.id.checkBoxWantQR);
 
         try {
-            currBalance = GetJsonResponse.getBalance("http://10.2.77.214:5000/api/get_bal");
+            currBalance = GetJsonResponse.getBalance("http://10.2.77.214:5000/api/check_balance", authToken);
             // Extract the balance here
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Unable to fetch balance", Toast.LENGTH_SHORT).show();
@@ -86,6 +88,7 @@ public class PaymentActivity extends AppCompatActivity {
                         }
                         startActivity(new Intent(PaymentActivity.this, DisplayQR.class).putExtra("base64string", base64response));
                     } else {
+
                         Toast.makeText(getApplicationContext(), "Payment Successful", Toast.LENGTH_SHORT).show();
                     }
                 }
