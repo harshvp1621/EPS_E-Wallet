@@ -8,37 +8,37 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
 
-    <Button
-        android:id="@+id/btnGetPubKey"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="Get Public Key" />
+<!--    <Button-->
+<!--        android:id="@+id/btnGetPubKey"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_centerVertical="true"-->
+<!--        android:text="Get Public Key" />-->
 
     <Button
         android:id="@+id/btnScanBarcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnGetPubKey"
         android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:text="@string/scan_barcode" />
 
     <Button
-        android:id="@+id/btnGetQR"
+        android:id="@+id/btnPaymentsPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnScanBarcode"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:text="Get QR" />
+        android:text="PAY" />
 
     <Button
         android:id="@+id/btnLogout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnGetQR"
+        android:layout_below="@+id/btnPaymentsPage"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:text="Logout" />

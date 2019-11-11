@@ -34,6 +34,7 @@ public class LoginActivity extends Activity {
         if(session.isUserLoggedIn()){
             activityIntent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(activityIntent);
+            finish();
         }
 
         // get Email, Password input text

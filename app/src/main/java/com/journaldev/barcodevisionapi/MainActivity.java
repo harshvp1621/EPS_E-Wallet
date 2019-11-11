@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     UserSessionManager session;
 
-    Button btnGetPubKey, btnScanBarcode, btnQRCode, btnLogout;
+    Button btnScanBarcode, btnPaymentsPage, btnLogout;
     JSONObject response = new JSONObject();
     String base64response;
 //    byte[] base64response;
@@ -46,17 +46,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(session.checkLogin())
             finish();
 
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        try {
+//                    response = GetJsonResponse.getJSONObjectFromURL("https://api.myjson.com/bins/r9iic");
+            response = GetJsonResponse.getJSONObjectFromURL("http://10.2.77.214:5000/api/get_puk");
+            if(!response.isNull("Key")){
+//                        try {
+//                        String res = response.getString("html_url");
+                Toast.makeText(getApplicationContext(),"Received Public Key" + response.getString("Key"),Toast.LENGTH_LONG).show();
+//                        }
+//                        catch (JSONException e){
+//                            Toast.makeText(getApplicationContext(), "Parsing Error", Toast.LENGTH_SHORT).show();
+//                        }
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "NULL Val Returned", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        catch (JSONException e){
+            Toast.makeText(getApplicationContext(), "Json Exception", Toast.LENGTH_SHORT).show();
+        }
+        catch (IOException e){
+            Toast.makeText(getApplicationContext(), "Unable to Reach Server", Toast.LENGTH_SHORT).show();
+        }
+
         initViews();
+
     }
 
     private void initViews() {
-        btnGetPubKey = findViewById(R.id.btnGetPubKey);
+//        btnGetPubKey = findViewById(R.id.btnGetPubKey);
         btnScanBarcode = findViewById(R.id.btnScanBarcode);
-        btnQRCode = findViewById(R.id.btnGetQR);
+        btnPaymentsPage = findViewById(R.id.btnPaymentsPage);
         btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(this);
-        btnQRCode.setOnClickListener(this);
-        btnGetPubKey.setOnClickListener(this);
+        btnPaymentsPage.setOnClickListener(this);
+//        btnGetPubKey.setOnClickListener(this);
         btnScanBarcode.setOnClickListener(this);
     }
 
@@ -66,35 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.btnLogout:
                 session.logoutUser();
-                break;
-            case R.id.btnGetPubKey:
-                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                StrictMode.setThreadPolicy(policy);
-
-                try {
-//                    response = GetJsonResponse.getJSONObjectFromURL("https://api.myjson.com/bins/r9iic");
-                    response = GetJsonResponse.getJSONObjectFromURL("http://10.2.77.214:5000/api/get_qr");
-                    if(!response.isNull("Key")){
-//                        try {
-//                        String res = response.getString("html_url");
-                            Toast.makeText(getApplicationContext(),"Received Public Key" + response.getString("Key"),Toast.LENGTH_LONG).show();
-//                        }
-//                        catch (JSONException e){
-//                            Toast.makeText(getApplicationContext(), "Parsing Error", Toast.LENGTH_SHORT).show();
-//                        }
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(), "NULL Val Returned", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-                catch (JSONException e){
-                    Toast.makeText(getApplicationContext(), "Json Exception", Toast.LENGTH_SHORT).show();
-                }
-                catch (IOException e){
-                    Toast.makeText(getApplicationContext(), "Unable to Reach Server", Toast.LENGTH_SHORT).show();
-                }
-//                startActivity(new Intent(MainActivity.this, PictureBarcodeActivity.class));
+                finish();
                 break;
             case R.id.btnScanBarcode:
                 try{
@@ -105,19 +105,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 break;
-            case R.id.btnGetQR:
-                StrictMode.ThreadPolicy policy2 = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                StrictMode.setThreadPolicy(policy2);
-                try{
-                    base64response = GetBase64String.getBase64StringFromURL("http://10.2.77.214:5000/api/get_qr");
-                    if(base64response == null)
-                        Toast.makeText(getApplicationContext(), "NULL Response", Toast.LENGTH_SHORT).show();
-                }
-                catch (IOException e){
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "Unable to Reach Server", Toast.LENGTH_SHORT).show();
-                }
-                startActivity(new Intent(MainActivity.this, DisplayQR.class).putExtra("base64string", base64response));
+            case R.id.btnPaymentsPage:
+//                StrictMode.ThreadPolicy policy2 = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//                StrictMode.setThreadPolicy(policy2);
+//                try{
+//                    base64response = GetBase64String.getBase64StringFromURL("http://10.2.77.214:5000/api/get_qr");
+//                    if(base64response == null)
+//                        Toast.makeText(getApplicationContext(), "NULL Response", Toast.LENGTH_SHORT).show();
+//                }
+//                catch (IOException e){
+//                    e.printStackTrace();
+//                    Toast.makeText(getApplicationContext(), "Unable to Reach Server", Toast.LENGTH_SHORT).show();
+//                }
+                startActivity(new Intent(MainActivity.this, PaymentActivity.class).putExtra("base64string", base64response));
                 break;
         }
 

@@ -22,7 +22,7 @@ public class UserSessionManager {
     int PRIVATE_MODE = 0;
 
     // Sharedpref file name
-    private static final String PREFER_NAME = "AndroidExamplePref";
+    private static final String PREFER_NAME = "AuthTokens";
 
     // All Shared Preferences Keys
     private static final String IS_USER_LOGIN = "IsUserLoggedIn";

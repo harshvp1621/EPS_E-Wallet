@@ -7,6 +7,7 @@ import android.util.Base64;
 import android.view.View;
 import android.widget.ImageView;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 
 import android.content.Intent;
 import android.widget.Toast;
@@ -39,7 +40,7 @@ public class DisplayQR extends AppCompatActivity{
 
             Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString,0,decodedString.length);
             if(decodedByte != null)
-                qrImg.setImageBitmap(decodedByte);
+                qrImg.setImageBitmap(resizeBitmapImage(decodedByte, 256, 256));
             else
 //                Toast.makeText(getApplicationContext(), "NULL Decoded", Toast.LENGTH_SHORT).show();
             Toast.makeText(getApplicationContext(), "RAW "+ raw64, Toast.LENGTH_LONG).show();
@@ -48,13 +49,17 @@ public class DisplayQR extends AppCompatActivity{
             Toast.makeText(getApplicationContext(), "NULL String Returned", Toast.LENGTH_SHORT).show();
         }
     }
-//    public void onClick(View v) {
-//
-//        switch (v.getId()) {
-//            case R.id.btnGetQR:
-//                startActivity(new Intent(DisplayQR.this, MainActivity.class));
-//                break;
-//        }
-//
-//    }
+    private static Bitmap resizeBitmapImage(Bitmap bm, int newWidth, int newHeight){
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        float scaledWidth = ((float)newWidth)/width;
+        float scaledHeight = ((float)newHeight)/height;
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaledWidth, scaledHeight);
+
+        Bitmap resizedBitmap = Bitmap.createBitmap(bm,0,0,width,height,matrix,false);
+        bm.recycle();;
+        return resizedBitmap;
+    }
 }

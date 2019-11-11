@@ -12,6 +12,7 @@ import android.widget.Toast;
 import java.security.*;
 //import java.util.*;
 
+// This class verifies the QR code generated
 public class EmailActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText inSubject, inBody;

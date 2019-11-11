@@ -23,7 +23,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Bitmap;
 
 public class GetBase64String {
-    public static String getBase64StringFromURL(String urlString) throws IOException{
+    public static String getBase64StringFromURL(String urlString, String recipientID, String amount, String authToken) throws IOException{
         HttpURLConnection urlConnection = null;
         URL url = new URL(urlString);
         urlConnection = (HttpURLConnection) url.openConnection();
@@ -37,9 +37,9 @@ public class GetBase64String {
 
         JSONObject jsonParam = new JSONObject();
         try{
-            jsonParam.put("vendorid","1234");
-            jsonParam.put("amount","100");
-            jsonParam.put("tokenid","11222");
+            jsonParam.put("recipientid",recipientID);
+            jsonParam.put("amount",amount);
+            jsonParam.put("tokenid",authToken);
         }
         catch (JSONException e){
             e.printStackTrace();

@@ -35,4 +35,27 @@ public class GetJsonResponse {
 
         return new JSONObject(jsonString);
     }
+
+    public static String getBalance(String urlString) throws IOException, JSONException{
+        HttpURLConnection urlConnection = null;
+        URL url = new URL(urlString);
+        urlConnection = (HttpURLConnection) url.openConnection();
+        urlConnection.setRequestMethod("POST");
+        urlConnection.setReadTimeout(10000 /* milliseconds */ );
+        urlConnection.setRequestProperty("Accept-Encoding","identity");
+        urlConnection.setConnectTimeout(15000 /* milliseconds */ );
+        urlConnection.setDoOutput(true);
+        urlConnection.connect();
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+        StringBuilder sb = new StringBuilder();
+
+        String line;
+        while ((line = br.readLine()) != null) {
+            sb.append(line + "\n");
+        }
+        br.close();
+
+        return sb.toString();
+    }
 }
