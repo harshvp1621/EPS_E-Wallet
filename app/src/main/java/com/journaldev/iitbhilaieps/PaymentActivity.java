@@ -1,20 +1,17 @@
-package com.journaldev.barcodevisionapi;
+package com.journaldev.iitbhilaieps;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.journaldev.barcodevisionapi.R;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -29,7 +26,7 @@ public class PaymentActivity extends AppCompatActivity {
     String currBalance = "0";
     String recipientID;
     String amount;
-    String base64response;
+    String base64response, p2pTransaction;
     String authToken;
 
     @Override
@@ -56,19 +53,9 @@ public class PaymentActivity extends AppCompatActivity {
         eTxtAmount = findViewById(R.id.extTxtAmount);
         generateQR = findViewById(R.id.checkBoxWantQR);
 
-        try {
-            currBalance = GetJsonResponse.getBalance("http://10.2.77.214:5000/api/check_balance", authToken);
-            // Extract the balance here
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Unable to fetch balance", Toast.LENGTH_SHORT).show();
-            currBalance = "-1";
-
-            e.printStackTrace();
-        }
+        checkBalance();
 
         btnPay = findViewById(R.id.btnPay);
-
-        textViewCurrBalance.setText("Balance: " + currBalance);
 
             btnPay.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -79,20 +66,46 @@ public class PaymentActivity extends AppCompatActivity {
 
                     if (generateQR.isChecked()) {
                         try {
-                            base64response = GetBase64String.getBase64StringFromURL("http://10.2.77.214:5000/api/get_qr", recipientID, amount, authToken);
-                            if (base64response == null)
+                            base64response = GetBase64String.getBase64StringFromURL("http://192.168.43.167:5000/api/get_qr", recipientID, amount, authToken);
+                            if (base64response.equals(null))
                                 Toast.makeText(getApplicationContext(), "NULL Response", Toast.LENGTH_SHORT).show();
                         } catch (IOException e) {
                             e.printStackTrace();
                             Toast.makeText(getApplicationContext(), "Unable to Reach Server", Toast.LENGTH_SHORT).show();
                         }
                         startActivity(new Intent(PaymentActivity.this, DisplayQR.class).putExtra("base64string", base64response));
+//                        checkBalance();
                     } else {
-
-                        Toast.makeText(getApplicationContext(), "Payment Successful", Toast.LENGTH_SHORT).show();
+                        try {
+                            p2pTransaction = GetBase64String.getBase64StringFromURL("http://192.168.43.167:5000/api/p2p", recipientID, amount, authToken);
+                            if (p2pTransaction.equals("BALANCE_UNDERFLOW"))
+                                Toast.makeText(getApplicationContext(), "NOT Enough Balance", Toast.LENGTH_SHORT).show();
+                            else if(p2pTransaction.equals("PAYEE_DOES_NOT_EXIST")){
+                                Toast.makeText(getApplicationContext(), "Payee Does Not Exist", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Payment Successful", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(), "Unable to Reach Server", Toast.LENGTH_SHORT).show();
+                        }
+                        checkBalance();
+//                        Toast.makeText(getApplicationContext(), "Payment Successful", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
+    }
+    private void checkBalance(){
+        try {
+            currBalance = GetJsonResponse.getBalance("http://192.168.43.167:5000/api/check_balance", authToken);
+            // Extract the balance here
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Unable to fetch balance", Toast.LENGTH_SHORT).show();
+            currBalance = "-1";
+
+            e.printStackTrace();
+        }
+        textViewCurrBalance.setText("Balance: " + currBalance);
     }
 
 }

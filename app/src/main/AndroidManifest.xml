@@ -20,28 +20,38 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity android:name="com.journaldev.iitbhilaieps.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
+        <activity
+            android:name="com.journaldev.iitbhilaieps.MainActivity"
+            android:label="IITBhilaiWallet">
+        </activity>
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
 
-        <activity android:name=".PictureBarcodeActivity" />
-        <activity android:name=".ScannedBarcodeActivity" />
-        <activity android:name=".DisplayQR" />
         <activity
-            android:name=".EmailActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:name="com.journaldev.iitbhilaieps.PictureBarcodeActivity"
+            android:label="IITBhilaiWallet">
+        </activity>
+        <activity android:name="com.journaldev.iitbhilaieps.ScannedBarcodeActivity"
+            android:label="IITBhilaiWallet">
+        </activity>
+        <activity android:name="com.journaldev.iitbhilaieps.DisplayQR"
+            android:label="IITBhilaiWallet"></activity>
+        <activity
+            android:name="com.journaldev.iitbhilaieps.EmailActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:label="IITBhilaiWallet"/>
 
-        <activity android:name=".VerifyBarcodeActivity"/>
-        <activity android:name=".PaymentActivity"/>
-        <activity android:name=".ViewPastQRActivity"/>
+        <activity android:name="com.journaldev.iitbhilaieps.VerifyBarcodeActivity" android:label="IITBhilaiWallet"/>
+        <activity android:name="com.journaldev.iitbhilaieps.PaymentActivity" android:label="IITBhilaiWallet"/>
+        <activity android:name="com.journaldev.iitbhilaieps.ViewPastQRActivity" android:label="IITBhilaiWallet"/>
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />

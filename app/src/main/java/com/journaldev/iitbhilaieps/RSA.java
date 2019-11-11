@@ -1,4 +1,4 @@
-package com.journaldev.barcodevisionapi;
+package com.journaldev.iitbhilaieps;
 import android.util.Base64;
 
 import java.math.BigInteger;

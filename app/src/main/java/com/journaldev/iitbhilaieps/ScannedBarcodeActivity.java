@@ -1,4 +1,4 @@
-package com.journaldev.barcodevisionapi;
+package com.journaldev.iitbhilaieps;
 
 import android.Manifest;
 import android.content.Intent;
@@ -19,6 +19,7 @@ import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.journaldev.barcodevisionapi.R;
 
 import java.io.IOException;
 

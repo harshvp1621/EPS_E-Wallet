@@ -1,14 +1,15 @@
-package com.journaldev.barcodevisionapi;
+package com.journaldev.iitbhilaieps;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.journaldev.barcodevisionapi.R;
 
 import java.io.IOException;
 
@@ -41,9 +42,9 @@ public class LoginActivity extends Activity {
         txtUsername = findViewById(R.id.txtUsername);
         txtPassword = findViewById(R.id.txtPassword);
 
-        Toast.makeText(getApplicationContext(),
-                "User Login Status: " + session.isUserLoggedIn(),
-                Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(),
+//                "User Login Status: " + session.isUserLoggedIn(),
+//                Toast.LENGTH_LONG).show();
 
 
         // User Login button
@@ -65,7 +66,7 @@ public class LoginActivity extends Activity {
                 String passwordHash = GenSHA256.genSHA256Hash(password);
                 try{
 
-                    authToken = GetAuthToken.getAuthTokenFromServer("http://10.2.77.214/api/login",username,passwordHash);
+                    authToken = GetAuthToken.getAuthTokenFromServer("http://192.168.43.167:5000/api/login",username,passwordHash);
                 }
                 catch (IOException e){
                     e.printStackTrace();

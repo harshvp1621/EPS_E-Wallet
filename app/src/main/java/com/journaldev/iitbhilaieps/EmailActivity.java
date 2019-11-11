@@ -1,4 +1,4 @@
-package com.journaldev.barcodevisionapi;
+package com.journaldev.iitbhilaieps;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.journaldev.barcodevisionapi.R;
+
 import java.security.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 //import java.util.*;
 
 // This class verifies the QR code generated
@@ -19,7 +23,7 @@ public class EmailActivity extends AppCompatActivity implements View.OnClickList
     TextView txtEmailAddress;
     Button btnSendEmail;
 
-    String strPublicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCAZT/0N5Fyk9a0RYd2RRd+9c70dE2CbGIhs3SO/SW7kuLYy5NIhm0CSjxGonWSMQTQYV3ZSWZqRr/mueR/1fMGcI4PHdB4lasWxamzJmy0XA/Ow/ctf/U+i5mvPdQNE2Cnn144nf+FBfPNiLEV+tmLbSiq2x+DHOGsiDSWZNyM5wIDAQAB";
+    String strPublicKey = "MFswDQYJKoZIhvcNAQEBBQADSgAwRwJAcUbkc76P/Sg56UsY1K+gsE24bhMVcG5lcn1sqCUDDuLBESGdN8sSoHLrZa6Vy2RYGmgeOXSdPgzY2rWLAO6QNQIDAQAB";
 
     String [] values;
     String raw;
@@ -39,13 +43,17 @@ public class EmailActivity extends AppCompatActivity implements View.OnClickList
         if (getIntent().getStringExtra("email_address") != null) {
             raw = getIntent().getStringExtra("email_address");
             values = raw.split(",");
-            txtEmailAddress.setText("SampleString : " + values[1]);
+            SimpleDateFormat timestamp = new SimpleDateFormat("dd-MM-yyyy-hh-mm-ss");
+            String ts = timestamp.format(new Date());
+            txtEmailAddress.setText("Transaction ID : " + values[2] + "\nAmount: " + values[4] + "\nTimestamp: " + ts + "\nIndex: " + values[5]);
         }
         PublicKey key = RSA.getKey(strPublicKey);
-        byte[] message = values[1].getBytes();
+//        byte[] message = values[1].getBytes();
+        String mess = "ServerGeneratedTransac.";
+        byte[] message = mess.getBytes();
         boolean verdict = false;
         try {
-            verdict = RSA.verify(message, values[0], values[2]);
+            verdict = RSA.verify(message, values[0],values[1]);
             if(verdict)
                 Toast.makeText(getApplicationContext(), "Correct Signature", Toast.LENGTH_SHORT).show();
             else
@@ -62,7 +70,7 @@ public class EmailActivity extends AppCompatActivity implements View.OnClickList
 //            case R.id.btnTakePicture:
 //                startActivity(new Intent(EmailActivity.this, PictureBarcodeActivity.class));
 //                break;
-            case R.id.btnScanBarcode:
+            case R.id.btnScanQR:
                 startActivity(new Intent(EmailActivity.this, ScannedBarcodeActivity.class));
                 break;
         }

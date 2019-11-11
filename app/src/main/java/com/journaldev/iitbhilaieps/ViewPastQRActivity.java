@@ -1,4 +1,4 @@
-package com.journaldev.barcodevisionapi;
+package com.journaldev.iitbhilaieps;
 
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
+
+import com.journaldev.barcodevisionapi.R;
 
 import java.io.File;
 import java.io.FileInputStream;

@@ -1,19 +1,16 @@
-package com.journaldev.barcodevisionapi;
+package com.journaldev.iitbhilaieps;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
-import android.view.View;
 import android.widget.ImageView;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 
-import android.content.Intent;
 import android.widget.Toast;
 
-import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
+import com.journaldev.barcodevisionapi.R;
 
 
 public class DisplayQR extends AppCompatActivity{

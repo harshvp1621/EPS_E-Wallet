@@ -15,13 +15,19 @@
 <!--        android:layout_centerHorizontal="true"-->
 <!--        android:layout_centerVertical="true"-->
 <!--        android:text="Get Public Key" />-->
-
     <Button
-        android:id="@+id/btnScanBarcode"
+        android:id="@+id/btnCheckBal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:text="Check Balance" />
+
+    <Button
+        android:id="@+id/btnScanQR"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnCheckBal"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:text="@string/scan_barcode" />
 
@@ -29,7 +35,7 @@
         android:id="@+id/btnPaymentsPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnScanBarcode"
+        android:layout_below="@+id/btnScanQR"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:text="PAY" />

@@ -1,4 +1,4 @@
-package com.journaldev.barcodevisionapi;
+package com.journaldev.iitbhilaieps;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,12 +6,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+
+import com.journaldev.barcodevisionapi.R;
 
 // This activity is invoked from the ScannedBarcodeActivity. The verification of the QR code will take place here.
 public class VerifyBarcodeActivity extends AppCompatActivity {
@@ -35,7 +31,7 @@ public class VerifyBarcodeActivity extends AppCompatActivity {
     public void onClick(View v) {
 
         switch (v.getId()) {
-            case R.id.btnScanBarcode:
+            case R.id.btnScanQR:
                 startActivity(new Intent(VerifyBarcodeActivity.this, ScannedBarcodeActivity.class));
                 break;
         }

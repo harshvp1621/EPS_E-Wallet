@@ -1,4 +1,4 @@
-package com.journaldev.barcodevisionapi;
+package com.journaldev.iitbhilaieps;
 
 import android.util.Log;
 import android.widget.Toast;
@@ -35,40 +35,24 @@ public class GetBase64String {
         urlConnection.setDoOutput(true);
         urlConnection.connect();
 
+
         JSONObject jsonParam = new JSONObject();
         try{
             jsonParam.put("vendorid",recipientID);
             jsonParam.put("amount",amount);
-            jsonParam.put("tokenid",authToken);
+            jsonParam.put("auth_token",authToken);
         }
         catch (JSONException e){
             e.printStackTrace();
         }
 
-        Log.i("JSON",jsonParam.toString());
-//        OutputStreamWriter writer = new OutputStreamWriter(urlConnection.getOutputStream());
-//        writer.write(jsonParam.toString());
-//        writer.flush();
-
         DataOutputStream data = new DataOutputStream(urlConnection.getOutputStream());
-        Log.i("JSON2",jsonParam.toString());
+
         data.write(jsonParam.toString().getBytes());
-        Log.i("JSON3",jsonParam.toString());
+
         data.flush();
-        Log.i("JSON4",jsonParam.toString());
+
         data.close();
-//        OutputStream outputStream = urlConnection.getOutputStream();
-//        Log.i("JSON2",jsonParam.toString());
-//        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-//        writer.write(jsonParam.toString());
-//        writer.close();
-//        outputStream.close();
-
-
-        Log.i("JSON5",jsonParam.toString());
-
-        Log.i("STATUS", String.valueOf(urlConnection.getResponseCode()));
-        Log.i("MSG" , urlConnection.getResponseMessage());
 
 //        InputStream is = urlConnection.getInputStream();
 //        byte[] response = new byte[65536];
